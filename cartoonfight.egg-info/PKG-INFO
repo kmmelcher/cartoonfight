@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: cartoonfight
+Version: 1.0.dev1
+Summary: 2D Fighting game with cartoon characters
+Home-page: https://github.com/kmmelcher/cartoonfight
+Author: Kilian Melcher
+Author-email: kilian.melcher@gmail.com
+License: UNKNOWN
+Description: <h1>Description</h1>
+        Cartoon Fight is a 2D battle game to play against your friends
+        with your favorites cartoon characters. 
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

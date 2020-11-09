@@ -1,0 +1,9 @@
+README.md
+setup.py
+cartoonfight/__init__.py
+cartoonfight/__main__.py
+cartoonfight.egg-info/PKG-INFO
+cartoonfight.egg-info/SOURCES.txt
+cartoonfight.egg-info/dependency_links.txt
+cartoonfight.egg-info/requires.txt
+cartoonfight.egg-info/top_level.txt
