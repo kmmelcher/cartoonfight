@@ -1,2 +1,7 @@
 # python libraries
 .python-version
+
+#pip directories
+build
+dist
+cartoonfight.egg-info
