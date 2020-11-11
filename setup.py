@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="cartoonfight", 
-    version="1.0.dev3",
+    name="cartoonfight",
+    version="1.0.dev4",
     author="Kilian Melcher",
     author_email="kilian.melcher@gmail.com",
     description="2D Fighting game with cartoon characters",
@@ -20,5 +20,8 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: Unix",
     ],
+    entry_points={
+        'console_scripts':['cartoonfight = cartoonfight.__main__:main']
+    },
     python_requires='>=3.6',
 )
