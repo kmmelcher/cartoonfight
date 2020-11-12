@@ -1,8 +1,14 @@
-# python libraries
+#Python
 .python-version
+*.pyc
+*.pyo
 
-#pip directories
+#Pip directories
 build
 dist
-cartoonfight.egg-info
+*.egg-info
+
+#Misc
 Makefile
+
+

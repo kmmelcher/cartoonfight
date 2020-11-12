@@ -1,31 +1,11 @@
 import pygame
 
-pygame.init()
+import tools, prepare
 
-#Display size
-display_width = 800
-display_height = 600
-
-game_display = pygame.display.set_mode((display_width,display_height))
-
-#Game title
-pygame.display.set_caption('Cartoon Fight')
-
-def game_loop():
-
-	run = True
-
-	while run:
-
-		#Quit Game
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				run = False
-
-	pygame.quit()
 
 def main():
-	game_loop()
+	prepare.game_loop()
+	pygame.quit()
 
 if __name__ == '__main__':
     main()
