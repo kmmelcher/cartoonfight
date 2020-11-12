@@ -1,6 +1,6 @@
 import pygame
 
-import tools, prepare
+import tools, prepare, player
 
 
 def main():
