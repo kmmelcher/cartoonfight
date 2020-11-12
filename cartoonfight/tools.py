@@ -23,12 +23,8 @@ def load_graphics_from_directories(directories):
 	Calls the load_all_graphics() function for all directories passed.
 	"""
 	#Get path from directory above
-	abs_path = os.path.abspath(os.path.join(
-		os.path.dirname( __file__ ),
-		'..',
-		'resources',
-	))
-	base_path = os.path.join(abs_path, 'images')
+	
+	base_path = os.path.join('images')
 	GRAPHICS = {}
 	for directory in directories:
 	    path = os.path.join(base_path, directory)

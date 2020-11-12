@@ -1,7 +1,7 @@
 import pygame
 import os
 
-from . import tools
+import tools
 
 #intialization
 pygame.init()

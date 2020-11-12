@@ -1,6 +1,6 @@
 import pygame
 
-from .data import tools, prepare
+import tools, prepare
 
 
 def main():
