@@ -39,4 +39,3 @@ def game_loop():
 		draw_window()
 
 	pygame.quit()
-
