@@ -1,8 +1,8 @@
 import pygame
-import os
 
-import tools
-import player
+from . import tools,player
+
+
 #intialization
 pygame.init()
 
@@ -19,16 +19,16 @@ FPS = 5
 CAPTION = "Cartoon Fight"
 pygame.display.set_caption(CAPTION)
 
-#loading resources
-_SUB_DIRECTORIES = ["backgrounds"]
-GRAPHICS = tools.load_graphics_from_directories(_SUB_DIRECTORIES)
+#load images
+_SUB_DIRECTORIES = ["aang","backgrounds"]
+IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 
 #Game backgroud
 def draw_window():
-	DISPLAY.blit(GRAPHICS['backgrounds']['default'],(0,0))
+	DISPLAY.blit(IMAGES['backgrounds']['default'],(0,0))
 
-	player1.draw()
-	player2.draw()
+	player1.draw(IMAGES['aang'])
+	player2.draw(IMAGES['aang'])
 	
 	pygame.display.update()
 	

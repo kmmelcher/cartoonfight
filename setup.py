@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cartoonfight",
-    version="1.0.dev5",
+    version="1.0.dev7",
     author="Kilian Melcher",
     author_email="kilian.melcher@gmail.com",
     description="2D Fighting game with cartoon characters",
@@ -24,4 +24,5 @@ setuptools.setup(
         'console_scripts':['cartoonfight = cartoonfight.__main__:main']
     },
     python_requires='>=3.6',
+    include_package_data=True,
 )

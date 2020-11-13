@@ -1,11 +1,7 @@
 import pygame
 
-import tools
+from . import tools, prepare
 
-
-#importinh images of the caracters
-_SUB_DIRECTORIES = ["aang"]
-GRAPHICS = tools.load_graphics_from_directories(_SUB_DIRECTORIES)
 
 #definition of a player class
 class Player(object):
@@ -28,14 +24,14 @@ class Player(object):
         self.player1 = p
 
 
-    def draw(self):
+    def draw(self, sprites):
 
         if self.standing:
             #put here the animation of the standing caracter
             pass
         else:
             if self.right:
-                self.display.blit(GRAPHICS['aang']['WR'+str(self.framecount%4)], self.position)
+                self.display.blit(sprites['WR'+str(self.framecount%4)], self.position)
                 #put here the animation of right walking caracter
                 pass
             elif self.left:
@@ -50,7 +46,4 @@ class Player(object):
             pass
                 
         self.framecount += 1
-	
-	
-	
 	
