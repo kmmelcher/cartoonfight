@@ -43,13 +43,13 @@ xTwo = DISPLAY_SIZE[0]-138
 FLOOR = DISPLAY_SIZE[1]-228
 
 playerOne = player.Player([xOne,FLOOR], 100, (128,128), True, DISPLAY)
-playerTwo = player.Player([xTwo,FLOOR+15], 100, (128,128), False, DISPLAY)
+playerTwo = player.Player([xTwo,FLOOR], 100, (128,128), False, DISPLAY)
 
 def draw_window():
 	DISPLAY.blit(background,(0,0))
 
 	playerOne.draw(IMAGES['aang'])
-	playerTwo.draw(IMAGES['goblin'])
+	playerTwo.draw(IMAGES['warrior'])
 	
 	pygame.display.update()
 	
