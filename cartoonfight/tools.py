@@ -8,7 +8,7 @@ import pathlib
 
 ROOT_PATH = pathlib.Path(__file__).parent.absolute()
 
-def load_all_images(directory,accept=(".png",".jpg")):
+def load_images(directory,accept=(".png",".jpg")):
 	"""
 	Load all images with extensions in the accept argument.
 	"""
@@ -25,9 +25,9 @@ def load_images_from_directories(directories):
 	"""
 	Calls the load_all_images() function for all directories passed.
 	"""	
-	base_path = os.path.join(ROOT_PATH,'images')
+	images_path = os.path.join(ROOT_PATH,'images')
 	IMAGES = {}
 	for directory in directories:
-	    path = os.path.join(base_path, directory)
-	    IMAGES[directory] = load_all_images(path)    
+	    path = os.path.join(images_path, directory)
+	    IMAGES[directory] = load_images(path)
 	return IMAGES

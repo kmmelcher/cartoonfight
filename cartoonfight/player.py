@@ -1,7 +1,5 @@
 import pygame
 
-from . import tools, prepare
-
 
 #definition of a player class
 class Player(object):

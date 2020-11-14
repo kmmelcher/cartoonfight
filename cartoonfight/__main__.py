@@ -1,10 +1,10 @@
 import pygame
 
-from . import tools, prepare, player
+from . import start
 
 
 def main():
-	prepare.game_loop()
+	start.game_loop()
 	pygame.quit()
 
 if __name__ == '__main__':
