@@ -3,39 +3,40 @@ import pygame
 from . import tools,player
 
 
-#intialization
 pygame.init()
-
-#Game display
-DISPLAY_SIZE = (850,480)
-DISPLAY = pygame.display.set_mode(DISPLAY_SIZE)
-DISPLAY_RECT = DISPLAY.get_rect()
-
 
 clock = pygame.time.Clock()
 FPS = 5
+
+#Game display
+monitor = pygame.display.Info()
+DISPLAY_SIZE = (monitor.current_w, monitor.current_h)
+DISPLAY = pygame.display.set_mode(DISPLAY_SIZE)
+DISPLAY_RECT = DISPLAY.get_rect()
 
 #Game title
 CAPTION = "Cartoon Fight"
 pygame.display.set_caption(CAPTION)
 
 #load images
-_SUB_DIRECTORIES = ["aang","backgrounds"]
+_SUB_DIRECTORIES = ['aang','goblin','warrior','backgrounds']
 IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 
-#Game backgroud
-def draw_window():
-	DISPLAY.blit(IMAGES['backgrounds']['default'],(0,0))
+#Scale background
+background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
+	
+playerOne = player.Player((10,316), 100, (128,128), True, DISPLAY)
+playerTwo = player.Player((700,380), 100, (64,64), False, DISPLAY)
 
-	player1.draw(IMAGES['aang'])
-	player2.draw(IMAGES['aang'])
+def draw_window():
+	DISPLAY.blit(background,(0,0))
+
+	playerOne.draw(IMAGES['aang'])
+	playerTwo.draw(IMAGES['goblin'])
 	
 	pygame.display.update()
 	
-player1 = player.Player((10,300), 100, (128,128), True, DISPLAY_SIZE, DISPLAY)
-player2 = player.Player((700,300), 100, (128,128), False, DISPLAY_SIZE, DISPLAY)
 
-#Main loop
 def game_loop():
 
 	run = True
@@ -49,6 +50,5 @@ def game_loop():
 
 		draw_window()
 		clock.tick(FPS)
-	
 
 	pygame.quit()

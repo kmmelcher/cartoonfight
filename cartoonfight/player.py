@@ -6,22 +6,22 @@ from . import tools, prepare
 #definition of a player class
 class Player(object):
 
-    def __init__(self, position, maxhealth, size, p, displaysize, display):
-        self.alive = True
+    def __init__(self, position, maxhealth, size, pOne, display):
+        self.display = display
         self.position = position
         self.size = size
+
         self.maxHealth = maxhealth
         self.health = self.maxHealth
+        self.alive = True
         
         self.standing = False
         self.right = True
         self.left = False
         
         self.framecount = 0
-        self.displaySize = displaysize
-        self.display = display
         
-        self.player1 = p
+        self.playerOne = pOne
 
 
     def draw(self, sprites):
@@ -38,7 +38,7 @@ class Player(object):
                 #put here the animation of left walking caracter
                 pass
                 
-        if self.player1:
+        if self.playerOne:
 		#put here the left health bar
             pass
         else:
