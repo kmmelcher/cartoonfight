@@ -13,3 +13,9 @@ To **update** it just run `$ pip install --upgrade cartoonfight`.
 ## Play
 
 Just run `$ cartoonfight`.
+
+## Game Controls
+
+Press `A` or `D` to move Player One
+
+Press `<-` or `->` to move Player Two
