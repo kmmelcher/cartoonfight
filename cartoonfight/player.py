@@ -5,7 +5,7 @@ import pygame
 class Player(object):
 
     def __init__(self, position, maxHealth, size, isPlayerOne, display):
-        self.name = ' '
+        self.name = ''
         self.display = display
         self.position = position
         self.size = size
@@ -50,17 +50,17 @@ class Player(object):
             self.framecount += 1
                 
         if self.isPlayerOne:
-            w = pygame.display.get_window_size()
-            ph = self.health/self.maxHealth
-            pygame.draw.rect(self.display,(200,100,100),(w[0]*0.05-2,w[1]*0.05-2,w[0]*0.4+4,w[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200), (w[0]*0.05,w[1]*0.05,w[0]*0.4, w[1]*0.03))
-            pygame.draw.rect(self.display,(255*(1-ph),255*ph,0), (w[0]*0.05,w[1]*0.05,w[0]*0.4*ph, w[1]*0.03))
+            window_size = pygame.display.get_window_size()
+            player_health = self.health/self.maxHealth
+            pygame.draw.rect(self.display,(200,100,100),(window_size[0]*0.05-2,window_size[1]*0.05-2,window_size[0]*0.4+4,window_size[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200), (window_size[0]*0.05,window_size[1]*0.05,window_size[0]*0.4, window_size[1]*0.03))
+            pygame.draw.rect(self.display,(255*(1-player_health),255*player_health,0), (window_size[0]*0.05,window_size[1]*0.05,window_size[0]*0.4*player_health, window_size[1]*0.03))
         else:
-            w = pygame.display.get_window_size()
-            ph = self.health/self.maxHealth
-            pygame.draw.rect(self.display,(200,100,100),(w[0]*0.55-2,w[1]*0.05-2,w[0]*0.4+4,w[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200),(w[0]*0.55,w[1]*0.05,w[0]*0.4,w[1]*0.03))
-            pygame.draw.rect(self.display,(255*(1-ph),255*ph,0),(w[0]*0.55+w[0]*0.4*(1-ph),w[1]*0.05,w[0]*0.4,w[1]*0.03))
+            window_size = pygame.display.get_window_size()
+            player_health = self.health/self.maxHealth
+            pygame.draw.rect(self.display,(200,100,100),(window_size[0]*0.55-2,window_size[1]*0.05-2,window_size[0]*0.4+4,window_size[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200),(window_size[0]*0.55,window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
+            pygame.draw.rect(self.display,(255*(1-player_health),255*player_health,0),(window_size[0]*0.55+window_size[0]*0.4*(1-player_health),window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
 
 
                 
