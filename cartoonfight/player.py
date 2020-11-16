@@ -5,6 +5,7 @@ import pygame
 class Player(object):
 
     def __init__(self, position, maxHealth, size, isPlayerOne, display):
+        self.name = ' '
         self.display = display
         self.position = position
         self.size = size
@@ -49,12 +50,19 @@ class Player(object):
             self.framecount += 1
                 
         if self.isPlayerOne:
-		    #put here the left health bar
-            pass
+            w = pygame.display.get_window_size()
+            ph = self.health/self.maxHealth
+            pygame.draw.rect(self.display,(200,100,100),(w[0]*0.05-2,w[1]*0.05-2,w[0]*0.4+4,w[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200), (w[0]*0.05,w[1]*0.05,w[0]*0.4, w[1]*0.03))
+            pygame.draw.rect(self.display,(255*(1-ph),255*ph,0), (w[0]*0.05,w[1]*0.05,w[0]*0.4*ph, w[1]*0.03))
         else:
+            w = pygame.display.get_window_size()
+            ph = self.health/self.maxHealth
+            pygame.draw.rect(self.display,(200,100,100),(w[0]*0.55-2,w[1]*0.05-2,w[0]*0.4+4,w[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200),(w[0]*0.55,w[1]*0.05,w[0]*0.4,w[1]*0.03))
+            pygame.draw.rect(self.display,(255*(1-ph),255*ph,0),(w[0]*0.55+w[0]*0.4*(1-ph),w[1]*0.05,w[0]*0.4,w[1]*0.03))
 
-		    #put here the right health bar
-            pass
+
                 
         
 	
