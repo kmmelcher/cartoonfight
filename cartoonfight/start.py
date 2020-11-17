@@ -10,7 +10,7 @@ from pygame.locals import (
     K_ESCAPE,
     K_a,
     K_d,
-    K_f,
+    K_w,
     KEYDOWN,
     QUIT,
 )
@@ -69,20 +69,25 @@ def game_loop():
 
 		#User press key
 		user_press = pygame.key.get_pressed()
+                #player 1 actions
 		if user_press[K_d]:
 			playerOne.mov_right()
 		elif user_press[K_a]:
 			playerOne.mov_left()
 		else:
-                        playerOne.stand()
+			playerOne.stand()
+		if user_press[K_w] or playerOne.jumping:
+			playerOne.jump(FLOOR)
 
-
+                #player 2 actions
 		if user_press[K_RIGHT]:
 			playerTwo.mov_right()
 		elif user_press[K_LEFT]:
 			playerTwo.mov_left()
 		else:
 			playerTwo.stand()
+		if user_press[K_UP] or playerTwo.jumping:
+			playerTwo.jump(FLOOR)
 
 		draw_window()
 		clock.tick(FPS)

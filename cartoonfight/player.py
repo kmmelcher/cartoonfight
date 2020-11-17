@@ -25,11 +25,13 @@ class Player(object):
 
         self.right = False
         self.left = False
+        self.jumping = False
 
         self.base_atk_left = False
         self.base_atk_right = False
-
+    
         self.speed = 18
+        self.yspeed = 0
         
         self.framecount = 0
     
@@ -108,6 +110,22 @@ class Player(object):
         elif self.left:
             self.standingLeft = True
             self.left = False
+    def jump(self, FLOOR):
+        gravity = 20
+        if self.jumping:
+            if self.position[1] <= FLOOR:
+                self.position[1] -= self.yspeed
+                if self.position[1] > FLOOR:
+                    self.position[1] = FLOOR + 1
+                self.yspeed -= gravity
+            else:
+                self.position[1] = FLOOR
+                self.yspeed = 0
+                self.jumping = False
+        else:
+            self.jumping = True
+            self.yspeed = 100
+
 
 
 
