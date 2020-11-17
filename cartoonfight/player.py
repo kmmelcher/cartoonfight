@@ -26,12 +26,13 @@ class Player(object):
         self.right = False
         self.left = False
 
+        self.base_atk_left = False
+        self.base_atk_right = False
+
         self.speed = 18
         
         self.framecount = 0
-        
-        
-
+    
 
     def draw(self, sprites):
 
@@ -48,6 +49,15 @@ class Player(object):
         elif self.left:
             self.display.blit(sprites['WL'+str(1+self.framecount%4)], self.position)
             self.framecount += 1
+
+        elif self.base_atk_left:
+            self.display.blit(sprites['KL'+str(self.framecount%4)], self.position)
+            self.framecount += 1
+
+        elif self.base_atk_right:
+            self.display.blit(sprites['KR'+str(self.framecount%4)], self.position)
+            self.framecount += 1
+
                 
         if self.isPlayerOne:
             window_size = pygame.display.get_window_size()
@@ -78,7 +88,27 @@ class Player(object):
             pygame.draw.rect(self.display,(200,200,200),(window_size[0]*0.55,window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
             pygame.draw.rect(self.display,color,(window_size[0]*0.55+window_size[0]*0.4*(1-player_health),window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
 
+    #actions of the player
+    def mov_right(self):
+        self.position[0] += self.speed
+        self.right = True
+        self.left = False
+        self.standingRight = False
+        self.standingLeft = False
+    def mov_left(self):
+        self.position[0] -= self.speed
+        self.right = False
+        self.left = True
+        self.standingRight = False
+        self.standingLeft = False
+    def stand(self):
+        if self.right:
+            self.standingRight = True
+            self.right = False
+        elif self.left:
+            self.standingLeft = True
+            self.left = False
 
-                
-        
-	
+
+
+
