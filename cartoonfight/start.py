@@ -10,6 +10,7 @@ from pygame.locals import (
     K_ESCAPE,
     K_a,
     K_d,
+    K_w,
     KEYDOWN,
     QUIT,
 )
@@ -68,45 +69,25 @@ def game_loop():
 
 		#User press key
 		user_press = pygame.key.get_pressed()
+                #player 1 actions
 		if user_press[K_d]:
-			playerOne.position[0] += playerOne.speed
-			playerOne.right = True
-			playerOne.left = False
-			playerOne.standingRight = False
-			playerOne.standingLeft = False
+			playerOne.mov_right()
 		elif user_press[K_a]:
-			playerOne.position[0] -= playerOne.speed
-			playerOne.left = True
-			playerOne.right = False
-			playerOne.standingRight = False
-			playerOne.standingLeft = False
+			playerOne.mov_left()
 		else:
-			if playerOne.right:
-				playerOne.standingRight = True
-			elif playerOne.left:
-				playerOne.standingLeft = True
+			playerOne.stand()
+		if user_press[K_w] or playerOne.jumping:
+			playerOne.jump(FLOOR)
 
-
+                #player 2 actions
 		if user_press[K_RIGHT]:
-			playerTwo.position[0] += playerTwo.speed
-			playerTwo.right = True
-			playerTwo.left = False
-			playerTwo.standingRight = False
-			playerTwo.standingLeft = False
+			playerTwo.mov_right()
 		elif user_press[K_LEFT]:
-			playerTwo.position[0] -= playerTwo.speed
-			playerTwo.left = True
-			playerTwo.right = False
-			playerTwo.standingRight = False
-			playerTwo.standingLeft = False
+			playerTwo.mov_left()
 		else:
-			if playerTwo.right:
-				playerTwo.standingRight = True
-			elif playerTwo.left:
-				playerTwo.standingLeft = True
-
-			playerTwo.right = False
-			playerTwo.left = False
+			playerTwo.stand()
+		if user_press[K_UP] or playerTwo.jumping:
+			playerTwo.jump(FLOOR)
 
 		draw_window()
 		clock.tick(FPS)
