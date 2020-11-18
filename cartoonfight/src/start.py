@@ -39,12 +39,12 @@ IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 #Scale background
 background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
 	
-xOne = 10
-xTwo = DISPLAY_SIZE[0]-138
+playerOneX = 10
+playerTwoX = DISPLAY_SIZE[0]-138
 FLOOR = DISPLAY_SIZE[1]-228
 
-playerOne = player.Player([xOne,FLOOR], 100, (128,128), True, DISPLAY)
-playerTwo = player.Player([xTwo,FLOOR], 100, (128,128), False, DISPLAY)
+playerOne = player.Player([playerOneX,FLOOR], 100, (128,128), True, DISPLAY)
+playerTwo = player.Player([playerTwoX,FLOOR], 100, (128,128), False, DISPLAY)
 
 def draw_window():
 	DISPLAY.blit(background,(0,0))
@@ -53,7 +53,6 @@ def draw_window():
 	playerTwo.draw(IMAGES['warrior'])
 	
 	pygame.display.update()
-	
 
 def game_loop():
 
@@ -69,7 +68,10 @@ def game_loop():
 
 		#User press key
 		user_press = pygame.key.get_pressed()
-                #player 1 actions
+		
+		"""
+		Player One Controls
+		"""
 		if user_press[K_d]:
 			playerOne.move_right()
 		elif user_press[K_a]:
@@ -79,7 +81,9 @@ def game_loop():
 		if user_press[K_w] or playerOne.jumping:
 			playerOne.jump(FLOOR)
 
-                #player 2 actions
+		"""
+		Player Two Controls
+		"""
 		if user_press[K_RIGHT]:
 			playerTwo.move_right()
 		elif user_press[K_LEFT]:

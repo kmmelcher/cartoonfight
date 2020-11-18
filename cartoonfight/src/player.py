@@ -1,22 +1,21 @@
 import pygame
 
 
-#definition of a player class
 class Player(object):
 
-    def __init__(self, position, maxHealth, size, isPlayerOne, display):
+    def __init__(self, position, max_health, size, is_player_one, display):
         self.name = ''
         self.display = display
         self.position = position
         self.size = size
 
-        self.maxHealth = maxHealth
-        self.health = self.maxHealth
+        self.max_health = max_health
+        self.health = self.max_health
         self.alive = True
         
-        self.isPlayerOne = isPlayerOne
+        self.is_player_one = is_player_one
 
-        if self.isPlayerOne:
+        if self.is_player_one:
             self.standingRight = True
             self.standingLeft = False
         else:
@@ -34,7 +33,6 @@ class Player(object):
         self.yspeed = 0
         
         self.framecount = 0
-    
 
     def draw(self, sprites):
 
@@ -59,11 +57,10 @@ class Player(object):
         elif self.base_atk_right:
             self.display.blit(sprites['KR'+str(self.framecount%4)], self.position)
             self.framecount += 1
-
                 
-        if self.isPlayerOne:
+        if self.is_player_one:
             window_size = pygame.display.get_window_size()
-            player_health = self.health/self.maxHealth
+            player_health = self.health/self.max_health
             color = (0,0,0)
             if player_health > 0.7:
                 color = (0,255*player_health,0)
@@ -77,7 +74,7 @@ class Player(object):
             pygame.draw.rect(self.display,color, (window_size[0]*0.05,window_size[1]*0.05,window_size[0]*0.4*player_health, window_size[1]*0.03))
         else:
             window_size = pygame.display.get_window_size()
-            player_health = self.health/self.maxHealth
+            player_health = self.health/self.max_health
             color = (0,0,0)
             if player_health > 0.7:
                 color = (0,255*player_health,0)
@@ -90,19 +87,21 @@ class Player(object):
             pygame.draw.rect(self.display,(200,200,200),(window_size[0]*0.55,window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
             pygame.draw.rect(self.display,color,(window_size[0]*0.55+window_size[0]*0.4*(1-player_health),window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
 
-    #actions of the player
+    #Player actions
     def move_right(self):
         self.position[0] += self.speed
         self.right = True
         self.left = False
         self.standingRight = False
         self.standingLeft = False
+
     def move_left(self):
         self.position[0] -= self.speed
         self.right = False
         self.left = True
         self.standingRight = False
         self.standingLeft = False
+
     def stand(self):
         if self.right:
             self.standingRight = True
@@ -110,6 +109,7 @@ class Player(object):
         elif self.left:
             self.standingLeft = True
             self.left = False
+
     def jump(self, FLOOR):
         gravity = 20
         if self.jumping:
@@ -125,8 +125,3 @@ class Player(object):
         else:
             self.jumping = True
             self.yspeed = 100
-
-
-
-
-

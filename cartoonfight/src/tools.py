@@ -20,7 +20,6 @@ def load_images(directory,accept=(".png",".jpg")):
 	        images[name]=img
 	return images
 
-
 def load_images_from_directories(directories):
 	"""
 	Calls the load_all_images() function for all directories passed.
