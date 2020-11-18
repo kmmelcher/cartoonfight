@@ -20,7 +20,7 @@ pygame.init()
 
 #Frames Per Second
 clock = pygame.time.Clock()
-FPS = 6
+FPS = 27
 
 #Game display
 monitor = pygame.display.Info()

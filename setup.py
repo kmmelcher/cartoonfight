@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cartoonfight",
-    version="1.0.dev8",
+    version="1.0.dev9",
     author="Kilian Melcher",
     author_email="kilian.melcher@gmail.com",
     description="2D Fighting game with cartoon characters",
