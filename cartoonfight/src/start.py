@@ -49,7 +49,7 @@ playerTwo = player.Player([xTwo,FLOOR], 100, (128,128), False, DISPLAY)
 def draw_window():
 	DISPLAY.blit(background,(0,0))
 
-	playerOne.draw(IMAGES['aang'])
+	#playerOne.draw(IMAGES['aang'])
 	playerTwo.draw(IMAGES['warrior'])
 	
 	pygame.display.update()
@@ -71,9 +71,9 @@ def game_loop():
 		user_press = pygame.key.get_pressed()
                 #player 1 actions
 		if user_press[K_d]:
-			playerOne.mov_right()
+			playerOne.move_right()
 		elif user_press[K_a]:
-			playerOne.mov_left()
+			playerOne.move_left()
 		else:
 			playerOne.stand()
 		if user_press[K_w] or playerOne.jumping:
@@ -81,9 +81,9 @@ def game_loop():
 
                 #player 2 actions
 		if user_press[K_RIGHT]:
-			playerTwo.mov_right()
+			playerTwo.move_right()
 		elif user_press[K_LEFT]:
-			playerTwo.mov_left()
+			playerTwo.move_left()
 		else:
 			playerTwo.stand()
 		if user_press[K_UP] or playerTwo.jumping:

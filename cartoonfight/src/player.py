@@ -27,8 +27,8 @@ class Player(object):
         self.left = False
         self.jumping = False
 
-        self.base_atk_left = False
-        self.base_atk_right = False
+        self.basic_attack_left = False
+        self.basic_attack_right = False
     
         self.speed = 18
         self.yspeed = 0
@@ -91,13 +91,13 @@ class Player(object):
             pygame.draw.rect(self.display,color,(window_size[0]*0.55+window_size[0]*0.4*(1-player_health),window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
 
     #actions of the player
-    def mov_right(self):
+    def move_right(self):
         self.position[0] += self.speed
         self.right = True
         self.left = False
         self.standingRight = False
         self.standingLeft = False
-    def mov_left(self):
+    def move_left(self):
         self.position[0] -= self.speed
         self.right = False
         self.left = True

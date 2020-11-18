@@ -3,10 +3,10 @@ This module contains some loading functions.
 """
 import pygame
 import os
-import pathlib
 
 
-ROOT_PATH = pathlib.Path(__file__).parent.absolute()
+SRC_PATH = os.path.dirname (__file__)
+RESOURCES_PATH = os.path.join(SRC_PATH,'../resources')
 
 def load_images(directory,accept=(".png",".jpg")):
 	"""
@@ -24,8 +24,8 @@ def load_images(directory,accept=(".png",".jpg")):
 def load_images_from_directories(directories):
 	"""
 	Calls the load_all_images() function for all directories passed.
-	"""	
-	images_path = os.path.join(ROOT_PATH,'images')
+	"""
+	images_path = os.path.join(RESOURCES_PATH,'images')
 	IMAGES = {}
 	for directory in directories:
 	    path = os.path.join(images_path, directory)
