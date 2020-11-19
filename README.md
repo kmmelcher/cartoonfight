@@ -28,6 +28,6 @@ Kilian Melcher ✉ kilian.melcher@gmail.com
 
 Filipe Ramalho ✉ filiperamalhodasilva@gmail.com
 
-Designed by
+Artwork by
 
 Isabella Lúcio ✉ isabella.lucio1@gmail.com
