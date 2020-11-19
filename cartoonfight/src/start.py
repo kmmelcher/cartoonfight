@@ -69,6 +69,9 @@ def game_loop():
 		if user_press[K_w] or playerOne.jumping:
 			playerOne.jump()
 
+		if user_press[K_f] or playerOne.basic_attack_left or playerOne.basic_attack_right:
+			playerOne.basic_attack(playerTwo)
+                
 		"""
 		Player Two Controls
 		"""
@@ -80,6 +83,8 @@ def game_loop():
 			playerTwo.stand()
 		if user_press[K_UP] or playerTwo.jumping:
 			playerTwo.jump()
+		if user_press[K_l] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
+			playerTwo.basic_attack(playerOne)
 
 		draw_window()
 		clock.tick(FPS)

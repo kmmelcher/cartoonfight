@@ -19,6 +19,7 @@ class Player(object):
         self.window_size = pygame.display.get_window_size()
         self.floor = self.window_size[1]-228
         self.size = size
+
                 
         self.is_player_one = is_player_one
 
@@ -35,7 +36,7 @@ class Player(object):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
-        self.show_hitbox = False
+        self.show_hitbox = True
 
         #Player direction
         self.right = False
@@ -49,16 +50,30 @@ class Player(object):
         self.yspeed = 0
         
         self.framecount = 0
+        self.attack_count = 0
         self.walk_sprites = 9
 
         #Characther atributes
         self.max_health = max_health
         self.health = self.max_health
+        self.base_damage = 10
         self.alive = True
+
+        self.attack_hitbox = []
+        self.attacked = False
 
     def draw(self, sprites):
 
-        if self.standingRight:
+
+        if self.basic_attack_left:
+            self.display.blit(sprites['BAL'+str((self.attack_count//3)%4)], self.position)
+            self.attack_count += 1
+
+        elif self.basic_attack_right:
+            self.display.blit(sprites['BAR'+str((self.attack_count//3)%4)], self.position)
+            self.attack_count += 1
+
+        elif self.standingRight:
             self.display.blit(sprites['WR0'], self.position)
 
         elif self.standingLeft:
@@ -72,16 +87,14 @@ class Player(object):
             self.display.blit(sprites['WL'+str(1+self.framecount%self.walk_sprites)], self.position)
             self.framecount += 1
 
-        elif self.base_atk_left:
-            self.display.blit(sprites['KL'+str(self.framecount%4)], self.position)
-            self.framecount += 1
 
-        elif self.base_atk_right:
-            self.display.blit(sprites['KR'+str(self.framecount%4)], self.position)
-            self.framecount += 1
         self.health_bar()
+
         if self.show_hitbox:
             pygame.draw.rect(self.display, (235, 64, 52), self.hitbox, 4)
+            if self.attacked:
+                pygame.draw.rect(self.display, (235, 64, 52), self.attack_hitbox, 4)
+
        
 
     #Player actions
@@ -140,6 +153,38 @@ class Player(object):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
+    def basic_attack(self, other_player):
+        if self.right or self.standingRight:
+            self.basic_attack_right = True
+            self.basic_attack_left = False
+        elif self.left or self.standingLeft:
+            self.basic_attack_left = True
+            self.basic_attack_right = False
+
+        if self.attack_count > 9:
+            self.basic_attack_left = False
+            self.basic_attack_right = False
+            self.attack_count = 0
+        elif self.attack_count == 7:
+            direction = 0
+            if self.basic_attack_right:
+                direction = 40
+            else:
+                direction = -40
+            self.attacked = True
+            self.attack_hitbox = (pygame.Rect(
+                (self.position[0]+self.size[1]+direction, self.position[1] + self.size[3]/3),
+                (40, 40),
+            ))
+
+            if self.attack_hitbox.colliderect(other_player.hitbox):
+                other_player.health -= self.base_damage
+                if other_player.health < 0:
+                    other_player.health = 0
+            
+
+
+        
         
         
         
@@ -208,7 +253,7 @@ class Player(object):
                     (
                         self.window_size[0]*0.55+self.window_size[0]*0.4*(1-player_health),
                         self.window_size[1]*0.05,
-                        self.window_size[0]*0.4,
+                        self.window_size[0]*0.4*player_health,
                         self.window_size[1]*0.03
                     )
             )
