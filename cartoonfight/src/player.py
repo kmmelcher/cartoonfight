@@ -79,36 +79,10 @@ class Player(object):
         elif self.base_atk_right:
             self.display.blit(sprites['KR'+str(self.framecount%4)], self.position)
             self.framecount += 1
-                
-        if self.is_player_one:
-            player_health = self.health/self.max_health
-            color = (0,0,0)
-            if player_health > 0.7:
-                color = (0,255*player_health,0)
-            elif player_health > 0.2:
-                color = (50+255*(1-player_health),255*player_health*1.3,0)
-            else:
-                color = (255*(1-player_health),0,0)
-                
-            pygame.draw.rect(self.display,(200,100,100),(self.window_size[0]*0.05-2,self.window_size[1]*0.05-2,self.window_size[0]*0.4+4,self.window_size[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200), (self.window_size[0]*0.05,self.window_size[1]*0.05,self.window_size[0]*0.4, self.window_size[1]*0.03))
-            pygame.draw.rect(self.display,color, (self.window_size[0]*0.05,self.window_size[1]*0.05,self.window_size[0]*0.4*player_health, self.window_size[1]*0.03))
-        else:
-            player_health = self.health/self.max_health
-            color = (0,0,0)
-            if player_health > 0.7:
-                color = (0,255*player_health,0)
-            elif player_health > 0.2:
-                color = (50+255*(1-player_health),255*player_health*1.3,0)
-            else:
-                color = (255*(1-player_health),0,0)
-
-            pygame.draw.rect(self.display,(200,100,100),(self.window_size[0]*0.55-2,self.window_size[1]*0.05-2,self.window_size[0]*0.4+4,self.window_size[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200),(self.window_size[0]*0.55,self.window_size[1]*0.05,self.window_size[0]*0.4,self.window_size[1]*0.03))
-            pygame.draw.rect(self.display,color,(self.window_size[0]*0.55+self.window_size[0]*0.4*(1-player_health),self.window_size[1]*0.05,self.window_size[0]*0.4,self.window_size[1]*0.03))
-
+        self.health_bar()
         if self.show_hitbox:
             pygame.draw.rect(self.display, (235, 64, 52), self.hitbox, 4)
+       
 
     #Player actions
     def move_right(self):
@@ -166,3 +140,79 @@ class Player(object):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
+        
+        
+        
+        
+        
+    #Health bar function
+    def health_bar(self):
+        player_health = self.health/self.max_health
+        color = (0,0,0)
+        if player_health > 0.7:
+            color = (0,255*player_health,0)
+        elif player_health > 0.2:
+            color = (50+255*(1-player_health),255*player_health*1.3,0)
+        else:
+            color = (255*(1-player_health),0,0)
+            
+        if self.is_player_one:
+            pygame.draw.rect(
+                    self.display,(200,100,100),
+                    (
+                        self.window_size[0]*0.05-2,
+                        self.window_size[1]*0.05-2,
+                        self.window_size[0]*0.4+4,
+                        self.window_size[1]*0.03+4
+                    )
+            )
+            pygame.draw.rect(
+                    self.display,(200,200,200), 
+                    (
+                        self.window_size[0]*0.05,
+                        self.window_size[1]*0.05,
+                        self.window_size[0]*0.4, 
+                        self.window_size[1]*0.03
+                    )
+            )
+            pygame.draw.rect(
+                    self.display,color, 
+                    (
+                        self.window_size[0]*0.05,
+                        self.window_size[1]*0.05,
+                        self.window_size[0]*0.4*player_health, 
+                        self.window_size[1]*0.03
+                    )
+            )
+        else:
+            pygame.draw.rect(
+                    self.display,(200,100,100),
+                    (
+                        self.window_size[0]*0.55-2,
+                        self.window_size[1]*0.05-2,
+                        self.window_size[0]*0.4+4,
+                        self.window_size[1]*0.03+4
+                    )
+            )
+            pygame.draw.rect(
+                    self.display,(200,200,200),
+                    (
+                        self.window_size[0]*0.55,
+                        self.window_size[1]*0.05,
+                        self.window_size[0]*0.4,
+                        self.window_size[1]*0.03
+                    )
+            )
+            pygame.draw.rect(
+                    self.display,color,
+                    (
+                        self.window_size[0]*0.55+self.window_size[0]*0.4*(1-player_health),
+                        self.window_size[1]*0.05,
+                        self.window_size[0]*0.4,
+                        self.window_size[1]*0.03
+                    )
+            )
+
+
+
+
