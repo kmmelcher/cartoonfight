@@ -1,27 +1,43 @@
 import pygame
 
+import cartoonfight
+
 
 class Player(object):
 
-    def __init__(self, position, max_health, size, is_player_one, display):
+    def __init__(self, max_health, size, is_player_one, display):
+        """
+        :param max_health: (int) characther maximum health
+        :param size: (int,int,int,int) xStart, xEnd, yStart, yEnd
+        this coordinates are base on a 128x128 box.
+        :param is_player_one: (bool) player one or player two
+        :param display: (surface) game display
+        return: (None)
+        """
         self.name = ''
         self.display = display
-        self.position = position
+        self.window_size = pygame.display.get_window_size()
+        self.floor = self.window_size[1]-228
         self.size = size
-
-        self.max_health = max_health
-        self.health = self.max_health
-        self.alive = True
-        
+                
         self.is_player_one = is_player_one
 
         if self.is_player_one:
             self.standingRight = True
             self.standingLeft = False
+            self.position = [10,self.floor]
         else:
             self.standingLeft = True
             self.standingRight = False
+            self.position = [self.window_size[0]-138,self.floor]
 
+        self.hitbox = pygame.Rect(
+            (self.position[0]+self.size[0], self.position[1]+self.size[2]),
+            (self.size[1], self.size[3]),
+        )
+        self.show_hitbox = False
+
+        #Player direction
         self.right = False
         self.left = False
         self.jumping = False
@@ -34,6 +50,11 @@ class Player(object):
         
         self.framecount = 0
         self.walk_sprites = 9
+
+        #Characther atributes
+        self.max_health = max_health
+        self.health = self.max_health
+        self.alive = True
 
     def draw(self, sprites):
 
@@ -60,7 +81,6 @@ class Player(object):
             self.framecount += 1
                 
         if self.is_player_one:
-            window_size = pygame.display.get_window_size()
             player_health = self.health/self.max_health
             color = (0,0,0)
             if player_health > 0.7:
@@ -70,11 +90,10 @@ class Player(object):
             else:
                 color = (255*(1-player_health),0,0)
                 
-            pygame.draw.rect(self.display,(200,100,100),(window_size[0]*0.05-2,window_size[1]*0.05-2,window_size[0]*0.4+4,window_size[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200), (window_size[0]*0.05,window_size[1]*0.05,window_size[0]*0.4, window_size[1]*0.03))
-            pygame.draw.rect(self.display,color, (window_size[0]*0.05,window_size[1]*0.05,window_size[0]*0.4*player_health, window_size[1]*0.03))
+            pygame.draw.rect(self.display,(200,100,100),(self.window_size[0]*0.05-2,self.window_size[1]*0.05-2,self.window_size[0]*0.4+4,self.window_size[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200), (self.window_size[0]*0.05,self.window_size[1]*0.05,self.window_size[0]*0.4, self.window_size[1]*0.03))
+            pygame.draw.rect(self.display,color, (self.window_size[0]*0.05,self.window_size[1]*0.05,self.window_size[0]*0.4*player_health, self.window_size[1]*0.03))
         else:
-            window_size = pygame.display.get_window_size()
             player_health = self.health/self.max_health
             color = (0,0,0)
             if player_health > 0.7:
@@ -84,24 +103,41 @@ class Player(object):
             else:
                 color = (255*(1-player_health),0,0)
 
-            pygame.draw.rect(self.display,(200,100,100),(window_size[0]*0.55-2,window_size[1]*0.05-2,window_size[0]*0.4+4,window_size[1]*0.03+4))
-            pygame.draw.rect(self.display,(200,200,200),(window_size[0]*0.55,window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
-            pygame.draw.rect(self.display,color,(window_size[0]*0.55+window_size[0]*0.4*(1-player_health),window_size[1]*0.05,window_size[0]*0.4,window_size[1]*0.03))
+            pygame.draw.rect(self.display,(200,100,100),(self.window_size[0]*0.55-2,self.window_size[1]*0.05-2,self.window_size[0]*0.4+4,self.window_size[1]*0.03+4))
+            pygame.draw.rect(self.display,(200,200,200),(self.window_size[0]*0.55,self.window_size[1]*0.05,self.window_size[0]*0.4,self.window_size[1]*0.03))
+            pygame.draw.rect(self.display,color,(self.window_size[0]*0.55+self.window_size[0]*0.4*(1-player_health),self.window_size[1]*0.05,self.window_size[0]*0.4,self.window_size[1]*0.03))
+
+        if self.show_hitbox:
+            pygame.draw.rect(self.display, (235, 64, 52), self.hitbox, 4)
 
     #Player actions
     def move_right(self):
-        self.position[0] += self.speed
-        self.right = True
-        self.left = False
-        self.standingRight = False
-        self.standingLeft = False
+        if self.hitbox[0] < self.window_size[0] - self.size[0] -self.speed:
+            self.position[0] += self.speed
+            self.right = True
+            self.left = False
+            self.standingRight = False
+            self.standingLeft = False
+            self.hitbox = pygame.Rect(
+                (self.position[0]+self.size[0], self.position[1]+self.size[2]),
+                (self.size[1], self.size[3]),
+            )
+        else:
+            self.stand()
 
     def move_left(self):
-        self.position[0] -= self.speed
-        self.right = False
-        self.left = True
-        self.standingRight = False
-        self.standingLeft = False
+        if self.hitbox[0] > self.speed:
+            self.position[0] -= self.speed
+            self.right = False
+            self.left = True
+            self.standingRight = False
+            self.standingLeft = False
+            self.hitbox = pygame.Rect(
+                (self.position[0]+self.size[0], self.position[1]+self.size[2]),
+                (self.size[1], self.size[3]),
+            )
+        else:
+            self.stand()
 
     def stand(self):
         if self.right:
@@ -111,18 +147,22 @@ class Player(object):
             self.standingLeft = True
             self.left = False
 
-    def jump(self, FLOOR):
+    def jump(self):
         gravity = 20
         if self.jumping:
-            if self.position[1] <= FLOOR:
+            if self.position[1] <= self.floor:
                 self.position[1] -= self.yspeed
-                if self.position[1] > FLOOR:
-                    self.position[1] = FLOOR + 1
+                if self.position[1] > self.floor:
+                    self.position[1] = self.floor + 1
                 self.yspeed -= gravity
             else:
-                self.position[1] = FLOOR
+                self.position[1] = self.floor
                 self.yspeed = 0
                 self.jumping = False
         else:
             self.jumping = True
             self.yspeed = 100
+        self.hitbox = pygame.Rect(
+            (self.position[0]+self.size[0], self.position[1]+self.size[2]),
+            (self.size[1], self.size[3]),
+        )

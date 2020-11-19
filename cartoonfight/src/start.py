@@ -1,19 +1,7 @@
 import pygame
+from pygame.locals import *
 
 from . import tools,player
-
-from pygame.locals import (
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
-    K_ESCAPE,
-    K_a,
-    K_d,
-    K_w,
-    KEYDOWN,
-    QUIT,
-)
 
 
 pygame.init()
@@ -31,7 +19,6 @@ FPS = 18
 monitor = pygame.display.Info()
 DISPLAY_SIZE = (monitor.current_w, monitor.current_h)
 DISPLAY = pygame.display.set_mode(DISPLAY_SIZE)
-DISPLAY_RECT = DISPLAY.get_rect()
 
 #Game title
 CAPTION = "Cartoon Fight"
@@ -44,12 +31,8 @@ IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 #Scale background
 background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
 	
-playerOneX = 10
-playerTwoX = DISPLAY_SIZE[0]-138
-FLOOR = DISPLAY_SIZE[1]-228
-
-playerOne = player.Player([playerOneX,FLOOR], 100, (128,128), True, DISPLAY)
-playerTwo = player.Player([playerTwoX,FLOOR], 100, (128,128), False, DISPLAY)
+playerOne = player.Player(100, (40,48,0,128), True, DISPLAY)
+playerTwo = player.Player(100, (40,48,28,100), False, DISPLAY)
 
 def draw_window():
 	DISPLAY.blit(background,(0,0))
@@ -84,7 +67,7 @@ def game_loop():
 		else:
 			playerOne.stand()
 		if user_press[K_w] or playerOne.jumping:
-			playerOne.jump(FLOOR)
+			playerOne.jump()
 
 		"""
 		Player Two Controls
@@ -96,7 +79,7 @@ def game_loop():
 		else:
 			playerTwo.stand()
 		if user_press[K_UP] or playerTwo.jumping:
-			playerTwo.jump(FLOOR)
+			playerTwo.jump()
 
 		draw_window()
 		clock.tick(FPS)
