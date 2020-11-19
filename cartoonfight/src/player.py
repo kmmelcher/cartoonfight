@@ -29,10 +29,11 @@ class Player(object):
         self.basic_attack_left = False
         self.basic_attack_right = False
     
-        self.speed = 18
+        self.speed = 12
         self.yspeed = 0
         
         self.framecount = 0
+        self.walk_sprites = 9
 
     def draw(self, sprites):
 
@@ -43,11 +44,11 @@ class Player(object):
             self.display.blit(sprites['WL0'], self.position)
 
         elif self.right:
-            self.display.blit(sprites['WR'+str(1+self.framecount%4)], self.position)
+            self.display.blit(sprites['WR'+str(1+self.framecount%self.walk_sprites)], self.position)
             self.framecount += 1
 
         elif self.left:
-            self.display.blit(sprites['WL'+str(1+self.framecount%4)], self.position)
+            self.display.blit(sprites['WL'+str(1+self.framecount%self.walk_sprites)], self.position)
             self.framecount += 1
 
         elif self.base_atk_left:

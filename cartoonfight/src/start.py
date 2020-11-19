@@ -18,9 +18,14 @@ from pygame.locals import (
 
 pygame.init()
 
-#Frames Per Second
+#Timer
 clock = pygame.time.Clock()
-FPS = 6
+"""
+Frames Per Second
+so far we have 9 sprites for the movement of
+each character so it makes two full animations per second
+"""
+FPS = 18
 
 #Game display
 monitor = pygame.display.Info()
@@ -49,7 +54,7 @@ playerTwo = player.Player([playerTwoX,FLOOR], 100, (128,128), False, DISPLAY)
 def draw_window():
 	DISPLAY.blit(background,(0,0))
 
-	#playerOne.draw(IMAGES['aang'])
+	playerOne.draw(IMAGES['aang'])
 	playerTwo.draw(IMAGES['warrior'])
 	
 	pygame.display.update()
