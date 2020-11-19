@@ -16,6 +16,18 @@ Just run `$ cartoonfight`.
 
 ## Game Controls
 
-Press `A` or `D` to move Player One
+Press `A`, `W` or `D` to move Player One
 
-Press `<-` or `->` to move Player Two
+Press `🡸`,`🡹`  or `🡺` to move Player Two
+
+## Credits
+
+Programmed by
+
+Kilian Melcher 📧 kilian.melcher@gmail.com
+
+Filipe Ramalho 📧 filiperamalhodasilva@gmail.com
+
+Designed by
+
+Isabella Lúcio 📧 isabella.lucio1@gmail.com
