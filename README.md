@@ -24,10 +24,10 @@ Press `🡸`,`🡹`  or `🡺` to move Player Two
 
 Programmed by
 
-Kilian Melcher 📧 kilian.melcher@gmail.com
+Kilian Melcher ✉ kilian.melcher@gmail.com
 
-Filipe Ramalho 📧 filiperamalhodasilva@gmail.com
+Filipe Ramalho ✉ filiperamalhodasilva@gmail.com
 
 Designed by
 
-Isabella Lúcio 📧 isabella.lucio1@gmail.com
+Isabella Lúcio ✉ isabella.lucio1@gmail.com
