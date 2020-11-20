@@ -1,7 +1,8 @@
+import sys
 import pygame
 from pygame.locals import *
 
-from . import tools,player
+from . import tools,character
 
 
 pygame.init()
@@ -10,8 +11,6 @@ pygame.init()
 clock = pygame.time.Clock()
 """
 Frames Per Second
-so far we have 9 sprites for the movement of
-each character so it makes two full animations per second
 """
 FPS = 27
 
@@ -31,8 +30,8 @@ IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 #Scale background
 background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
 	
-playerOne = player.Player(100, (40,48,0,128), True, DISPLAY)
-playerTwo = player.Player(100, (40,48,28,100), False, DISPLAY)
+playerOne = character.Aang(True, DISPLAY)
+playerTwo = character.Aang(False, DISPLAY)
 
 def draw_window():
 	DISPLAY.blit(background,(0,0))
@@ -89,4 +88,6 @@ def game_loop():
 		draw_window()
 		clock.tick(FPS)
 
+	#Both methods are needed to avoid underrun error
 	pygame.quit()
+	sys.exit()
