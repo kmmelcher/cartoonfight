@@ -1,7 +1,5 @@
 import pygame
 
-import cartoonfight
-
 
 class Player(object):
 
@@ -20,7 +18,6 @@ class Player(object):
         self.floor = self.window_size[1]-228
         self.size = size
 
-                
         self.is_player_one = is_player_one
 
         if self.is_player_one:
@@ -36,7 +33,7 @@ class Player(object):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
-        self.show_hitbox = True
+        self.show_hitbox = False
 
         #Player direction
         self.right = False
@@ -46,7 +43,7 @@ class Player(object):
         self.basic_attack_left = False
         self.basic_attack_right = False
     
-        self.speed = 12
+        self.speed = 8
         self.yspeed = 0
         
         self.framecount = 0
@@ -63,8 +60,6 @@ class Player(object):
         self.attacked = False
 
     def draw(self, sprites):
-
-
         if self.basic_attack_left:
             self.display.blit(sprites['BAL'+str((self.attack_count//3)%4)], self.position)
             self.attack_count += 1
@@ -80,13 +75,12 @@ class Player(object):
             self.display.blit(sprites['WL0'], self.position)
 
         elif self.right:
-            self.display.blit(sprites['WR'+str(1+self.framecount%self.walk_sprites)], self.position)
+            self.display.blit(sprites['WR'+str(1+(self.framecount//3)%self.walk_sprites)], self.position)
             self.framecount += 1
 
         elif self.left:
-            self.display.blit(sprites['WL'+str(1+self.framecount%self.walk_sprites)], self.position)
+            self.display.blit(sprites['WL'+str(1+(self.framecount//3)%self.walk_sprites)], self.position)
             self.framecount += 1
-
 
         self.health_bar()
 
@@ -94,8 +88,6 @@ class Player(object):
             pygame.draw.rect(self.display, (235, 64, 52), self.hitbox, 4)
             if self.attacked:
                 pygame.draw.rect(self.display, (235, 64, 52), self.attack_hitbox, 4)
-
-       
 
     #Player actions
     def move_right(self):
@@ -182,15 +174,6 @@ class Player(object):
                 if other_player.health < 0:
                     other_player.health = 0
             
-
-
-        
-        
-        
-        
-        
-        
-    #Health bar function
     def health_bar(self):
         player_health = self.health/self.max_health
         color = (0,0,0)
@@ -257,7 +240,3 @@ class Player(object):
                         self.window_size[1]*0.03
                     )
             )
-
-
-
-

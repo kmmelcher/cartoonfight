@@ -13,7 +13,7 @@ Frames Per Second
 so far we have 9 sprites for the movement of
 each character so it makes two full animations per second
 """
-FPS = 18
+FPS = 27
 
 #Game display
 monitor = pygame.display.Info()
@@ -38,7 +38,7 @@ def draw_window():
 	DISPLAY.blit(background,(0,0))
 
 	playerOne.draw(IMAGES['aang'])
-	playerTwo.draw(IMAGES['warrior'])
+	playerTwo.draw(IMAGES['aang'])
 	
 	pygame.display.update()
 
@@ -83,7 +83,7 @@ def game_loop():
 			playerTwo.stand()
 		if user_press[K_UP] or playerTwo.jumping:
 			playerTwo.jump()
-		if user_press[K_l] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
+		if user_press[K_RCTRL] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
 			playerTwo.basic_attack(playerOne)
 
 		draw_window()
