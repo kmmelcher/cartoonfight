@@ -2,7 +2,7 @@ import sys
 import pygame
 from pygame.locals import *
 
-from . import tools,character
+from . import tools, character
 
 
 pygame.init()
