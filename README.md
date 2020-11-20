@@ -22,7 +22,7 @@ Player One
 
 Player Two
 
-:arrow_left: Left :arrow_up: Jump :arrow_right: Right `CTRL` Attack
+&#8592; Left &#8593; Jump &#8594; Right `CTRL` Attack
 
 ## Credits
 
