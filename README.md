@@ -14,20 +14,24 @@ To **update** it just run `$ pip install --upgrade cartoonfight`.
 
 Just run `$ cartoonfight`.
 
-## Game Controls
+## Game Controls :video_game:
 
-Press `A`, `W` or `D` to move Player One
+Player One 
 
-Press `🡸`,`🡹`  or `🡺` to move Player Two
+`A` Left, `W` Jump, `D` Right, `F` Attack 
+
+Player Two
+
+:arrow_left: Left :arrow_up: Jump :arrow_right: Right `CTRL` Attack
 
 ## Credits
 
 Programmed by
 
-Kilian Melcher ✉ kilian.melcher@gmail.com
+Kilian Melcher :email: kilian.melcher@gmail.com
 
-Filipe Ramalho ✉ filiperamalhodasilva@gmail.com
+Filipe Ramalho :email: filiperamalhodasilva@gmail.com
 
 Artwork by
 
-Isabella Lúcio ✉ isabella.lucio1@gmail.com
+Isabella Lúcio :email: isabella.lucio1@gmail.com
