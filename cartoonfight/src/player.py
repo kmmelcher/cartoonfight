@@ -9,7 +9,7 @@ class Player(object):
         :param is_player_one: (bool) is player one or player two
         :param display: (surface) game display
         """
-        self.name = ''
+        #Screen variables
         self.display = display
         self.window_size = pygame.display.get_window_size()
         self.floor = self.window_size[1]-228
@@ -19,19 +19,30 @@ class Player(object):
         self.left = False
         self.jumping = False
 
+        #Attack variables
         self.basic_attack_left = False
         self.basic_attack_right = False
+        self.attack_hitbox = []
+        self.attacked = False
+        self.alive = True
     
+        #Frames movement variables
         self.speed = 8
         self.yspeed = 0
-        
         self.framecount = 0
         self.attack_count = 0
         self.walk_sprites = 9
 
-        self.attack_hitbox = []
-        self.attacked = False
-        self.alive = True
+        #Define player as one or two
+        self.is_player_one = is_player_one
+        if self.is_player_one:
+            self.standingRight = True
+            self.standingLeft = False
+            self.position = [10,self.floor]
+        else:
+            self.standingLeft = True
+            self.standingRight = False
+            self.position = [self.window_size[0]-138,self.floor]
 
         """
         Characther atributes
@@ -42,16 +53,6 @@ class Player(object):
         self.base_damage = None
         self.size = None
         self.hitbox = None
-
-        self.is_player_one = is_player_one
-        if self.is_player_one:
-            self.standingRight = True
-            self.standingLeft = False
-            self.position = [10,self.floor]
-        else:
-            self.standingLeft = True
-            self.standingRight = False
-            self.position = [self.window_size[0]-138,self.floor]
 
     def draw(self, sprites):
         if self.basic_attack_left:
