@@ -85,6 +85,7 @@ class Player(object):
         self.show_hitbox(False)
 
     def health_bar(self):
+        self.health_percentage = self.health/self.max_health
         color = (0,0,0)
         if self.health_percentage > 0.7:
             color = (0,255*self.health_percentage,0)
