@@ -67,7 +67,6 @@ def game_loop():
 			playerOne.stand()
 		if user_press[K_w] or playerOne.jumping:
 			playerOne.jump()
-
 		if user_press[K_f] or playerOne.basic_attack_left or playerOne.basic_attack_right:
 			playerOne.basic_attack(playerTwo)
                 

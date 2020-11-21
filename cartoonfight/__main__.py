@@ -1,4 +1,4 @@
-from .src import start
+from cartoonfight.src import start
 
 
 def main():

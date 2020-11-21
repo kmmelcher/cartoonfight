@@ -10,6 +10,7 @@ class Aang(Player):
 		#Characther atributes
 		self.max_health = 100
 		self.health = self.max_health
+		self.health_percentage = self.health/self.max_health
 		self.base_damage = 10
 		"""
 		This tuple corresponds to the sprite size based on a 128x128 box:
