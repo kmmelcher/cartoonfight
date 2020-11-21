@@ -9,6 +9,18 @@ class Player(object):
         :param is_player_one: (bool) is player one or player two
         :param display: (surface) game display
         """
+
+        """
+        Characther atributes
+        set them to None to be assigned by subclass
+        """
+        self.max_health = None
+        self.health = None
+        self.health_percentage = None
+        self.base_damage = None
+        self.size = None
+        self.hitbox = None
+
         #Screen variables
         self.display = display
         self.window_size = pygame.display.get_window_size()
@@ -44,16 +56,7 @@ class Player(object):
             self.standingRight = False
             self.position = [self.window_size[0]-138,self.floor]
 
-        """
-        Characther atributes
-        set them to None to be assigned by subclass
-        """
-        self.max_health = None
-        self.health = None
-        self.base_damage = None
-        self.size = None
-        self.hitbox = None
-
+        
     def draw(self, sprites):
         if self.basic_attack_left:
             self.display.blit(sprites['BAL'+str((self.attack_count//3)%4)], self.position)
@@ -82,71 +85,54 @@ class Player(object):
         self.show_hitbox(False)
 
     def health_bar(self):
-        player_health = self.health/self.max_health
         color = (0,0,0)
-        if player_health > 0.7:
-            color = (0,255*player_health,0)
-        elif player_health > 0.2:
-            color = (50+255*(1-player_health),255*player_health*1.3,0)
+        if self.health_percentage > 0.7:
+            color = (0,255*self.health_percentage,0)
+        elif self.health_percentage > 0.2:
+            color = (
+                50+255*(1-self.health_percentage),
+                255*self.health_percentage*1.3,0,
+                )
         else:
-            color = (255*(1-player_health),0,0)
+            color = (255*(1-self.health_percentage),0,0)
             
         if self.is_player_one:
-            pygame.draw.rect(
-                    self.display,(200,100,100),
-                    (
-                        self.window_size[0]*0.05-2,
-                        self.window_size[1]*0.05-2,
-                        self.window_size[0]*0.4+4,
-                        self.window_size[1]*0.03+4
-                    )
-            )
-            pygame.draw.rect(
-                    self.display,(200,200,200), 
-                    (
-                        self.window_size[0]*0.05,
-                        self.window_size[1]*0.05,
-                        self.window_size[0]*0.4, 
-                        self.window_size[1]*0.03
-                    )
-            )
-            pygame.draw.rect(
-                    self.display,color, 
-                    (
-                        self.window_size[0]*0.05,
-                        self.window_size[1]*0.05,
-                        self.window_size[0]*0.4*player_health, 
-                        self.window_size[1]*0.03
-                    )
-            )
+            self.health_bar_rect(0.05, 0, color)
         else:
-            pygame.draw.rect(
-                    self.display,(200,100,100),
-                    (
-                        self.window_size[0]*0.55-2,
-                        self.window_size[1]*0.05-2,
-                        self.window_size[0]*0.4+4,
-                        self.window_size[1]*0.03+4
-                    )
+            self.health_bar_rect(
+                0.55, 
+                self.window_size[0]*0.4*(1-self.health_percentage), 
+                color
             )
-            pygame.draw.rect(
-                    self.display,(200,200,200),
-                    (
-                        self.window_size[0]*0.55,
-                        self.window_size[1]*0.05,
-                        self.window_size[0]*0.4,
-                        self.window_size[1]*0.03
-                    )
-            )
-            pygame.draw.rect(
-                    self.display,color,
-                    (
-                        self.window_size[0]*0.55+self.window_size[0]*0.4*(1-player_health),
-                        self.window_size[1]*0.05,
-                        self.window_size[0]*0.4*player_health,
-                        self.window_size[1]*0.03
-                    )
-            )
+           
+    def health_bar_rect(self, initial_position, reverse_position, color):
+        pygame.draw.rect(
+                self.display,(200,100,100),
+                (
+                    self.window_size[0]*initial_position-2,
+                    self.window_size[1]*0.05-2,
+                    self.window_size[0]*0.4+4,
+                    self.window_size[1]*0.03+4
+                )
+        )
+        pygame.draw.rect(
+                self.display,(200,200,200), 
+                (
+                    self.window_size[0]*initial_position,
+                    self.window_size[1]*0.05,
+                    self.window_size[0]*0.4, 
+                    self.window_size[1]*0.03
+                )
+        )
+        pygame.draw.rect(
+                self.display,color, 
+                (
+                    self.window_size[0]*initial_position+reverse_position,
+                    self.window_size[1]*0.05,
+                    self.window_size[0]*0.4*self.health_percentage, 
+                    self.window_size[1]*0.03
+                )
+        )
 
     def show_hitbox(self, show):
         if show:
@@ -164,7 +150,7 @@ class Player(object):
     Player actions
         Stand
         Move Right
-        Move Reft
+        Move Left
         Jump
         Basic Attack
     """
