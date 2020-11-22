@@ -8,6 +8,7 @@ class Aang(Player):
 		super().__init__(is_player_one, display)
 		
 		#Characther atributes
+		self.name = 'Aang'
 		self.max_health = 100
 		self.health = self.max_health
 		self.health_percentage = self.health/self.max_health
