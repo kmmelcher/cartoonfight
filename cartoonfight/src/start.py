@@ -27,6 +27,9 @@ pygame.display.set_caption(CAPTION)
 _SUB_DIRECTORIES = ['aang','goblin','warrior','backgrounds']
 IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 
+#load fonts
+FONTS = tools.load_fonts()
+
 #Scale background
 background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
 	
@@ -36,8 +39,8 @@ playerTwo = character.Aang(False, DISPLAY)
 def draw_window():
 	DISPLAY.blit(background,(0,0))
 
-	playerOne.draw(IMAGES['aang'])
-	playerTwo.draw(IMAGES['aang'])
+	playerOne.draw(IMAGES[playerOne.name.lower()], FONTS['default'])
+	playerTwo.draw(IMAGES[playerTwo.name.lower()], FONTS['default'])
 	
 	pygame.display.update()
 
