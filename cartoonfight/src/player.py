@@ -24,6 +24,15 @@ class Player(object):
         #Screen variables
         self.display = display
         self.window_size = pygame.display.get_window_size()
+        self.display_rect = self.display.get_rect()
+        self.border_left = self.display_rect.clipline(
+            (0, 0),
+            (4, self.window_size[1]),
+        )
+        self.border_right = self.display_rect.clipline(
+            (self.window_size[0]-8, 0),
+            (self.window_size[0], self.window_size[1]),
+        )
         self.floor = self.window_size[1]-228
         
         #Player direction
@@ -46,11 +55,11 @@ class Player(object):
         if self.is_player_one:
             self.standing_right = True
             self.standing_left = False
-            self.position = [10,self.floor]
+            self.position = [self.window_size[0]*0.05,self.floor]
         else:
             self.standing_left = True
             self.standing_right = False
-            self.position = [self.window_size[0]-138,self.floor]
+            self.position = [self.window_size[0]*0.85,self.floor]
            
         #Frames movement variables
         self.walk_sprites = 9
@@ -84,7 +93,9 @@ class Player(object):
             self.walk_count += 1
 
         self.health_bar(font)
-        self.show_hitbox(False) #Develper Tool
+        #Develper Tools
+        self.show_hitbox(False) 
+        self.show_borders(False)
 
     def health_bar(self, font):
         self.health_percentage = self.health/self.max_health
@@ -160,6 +171,11 @@ class Player(object):
             if self.attacked:
                 pygame.draw.rect(self.display, (235, 64, 52), self.attack_hitbox, 4)
 
+    def show_borders(self, show):
+        if show:
+            pygame.draw.rect(self.display,(235, 64, 52),self.border_right)
+            pygame.draw.rect(self.display,(235, 64, 52),self.border_left)
+
     def move_hitbox(self):
         self.hitbox = pygame.Rect(
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
@@ -184,7 +200,7 @@ class Player(object):
             self.left = False
 
     def move_right(self):
-        if self.hitbox[0] < self.window_size[0]-self.size[1]-self.speed:
+        if not self.hitbox.colliderect(self.border_right):
             self.position[0] += self.speed
             self.right = True
             self.left = False
@@ -195,7 +211,7 @@ class Player(object):
             self.stand()
 
     def move_left(self):
-        if self.hitbox[0] > self.speed:
+        if not self.hitbox.colliderect(self.border_left):
             self.position[0] -= self.speed
             self.right = False
             self.left = True
