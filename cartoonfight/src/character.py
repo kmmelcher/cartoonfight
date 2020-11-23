@@ -4,11 +4,12 @@ from .player import Player
 
 class Aang(Player):
 	
-	def __init__(self, is_player_one, display):
-		super().__init__(is_player_one, display)
+	def __init__(self, is_player_one, sprites, display):
+		super().__init__(is_player_one, sprites, display)
 		
 		#Characther atributes
 		self.name = 'Aang'
+		self.sprites = sprites[self.name.lower()]
 		self.max_health = 100
 		self.health = self.max_health
 		self.health_percentage = self.health/self.max_health
@@ -22,5 +23,3 @@ class Aang(Player):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
-
-	
