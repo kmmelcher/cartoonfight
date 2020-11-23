@@ -33,14 +33,14 @@ FONTS = tools.load_fonts()
 #Scale background
 background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
 	
-playerOne = character.Aang(True, DISPLAY)
-playerTwo = character.Aang(False, DISPLAY)
+playerOne = character.Aang(True, IMAGES, DISPLAY)
+playerTwo = character.Aang(False, IMAGES, DISPLAY)
 
 def draw_window():
 	DISPLAY.blit(background,(0,0))
 
-	playerOne.draw(IMAGES[playerOne.name.lower()], FONTS['default'])
-	playerTwo.draw(IMAGES[playerTwo.name.lower()], FONTS['default'])
+	playerOne.draw(FONTS['default'])
+	playerTwo.draw(FONTS['default'])
 	
 	pygame.display.update()
 
@@ -58,7 +58,7 @@ def game_loop():
 		user_press = pygame.key.get_pressed()
 
 		"""
-		Player One Controls
+		Player One press keys
 		"""
 		if user_press[K_d]:
 			playerOne.move_right()
@@ -72,7 +72,7 @@ def game_loop():
 			playerOne.basic_attack(playerTwo)
 
 		"""
-		Player Two Controls
+		Player Two press keys
 		"""
 		if user_press[K_RIGHT]:
 			playerTwo.move_right()
