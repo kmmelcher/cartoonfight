@@ -45,12 +45,10 @@ def draw_window():
 	pygame.display.update()
 
 def game_loop():
-
 	run = True
-
+	
 	while run:
 
-		#User hit key
 		for event in pygame.event.get():
 			#Quit Game
 			if event.type == QUIT:
@@ -58,7 +56,7 @@ def game_loop():
 
 		#User press key
 		user_press = pygame.key.get_pressed()
-		
+
 		"""
 		Player One Controls
 		"""
@@ -72,7 +70,7 @@ def game_loop():
 			playerOne.jump()
 		if user_press[K_f] or playerOne.basic_attack_left or playerOne.basic_attack_right:
 			playerOne.basic_attack(playerTwo)
-                
+
 		"""
 		Player Two Controls
 		"""
