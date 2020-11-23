@@ -67,7 +67,7 @@ class Player(object):
         #Frames movement variables
         self.walk_sprites = 9
         self.walk_count = 0
-        self.jump_sprites = 4
+        self.jump_sprites = 5
         self.jump_count = 15
         self.basic_attack_sprites = 4
         self.attack_count = 0
@@ -76,56 +76,69 @@ class Player(object):
 
         if self.jumping:
             if self.basic_attack_right:
-                self.draw_basic_attack_right()
+                self.draw_basic_attack('R')
             elif self.basic_attack_left:
-                self.draw_basic_attack_left()
+                self.draw_basic_attack('L')
             elif self.standing_right:
-                self.display.blit(self.sprites['JR'+str((self.jump_count//7)%self.jump_sprites)], self.position)
+                self.draw_standing_jump('R')
             elif self.standing_left:
-                self.display.blit(self.sprites['JL'+str((self.jump_count//7)%self.jump_sprites)], self.position)
+                self.draw_standing_jump('L')
             elif self.right:
-                self.draw_jump_right()
+                self.draw_moving_jump('R')
             elif self.left:
-                self.draw_jump_left()
+                self.draw_moving_jump('L')
             
         elif self.basic_attack_right:
-            self.draw_basic_attack_right()
+            self.draw_basic_attack('R')
 
         elif self.basic_attack_left:
-            self.draw_basic_attack_left()
+            self.draw_basic_attack('L')
 
         elif self.standing_right:
-            self.display.blit(self.sprites['WR0'], self.position)
+            self.draw_standing('R')
 
         elif self.standing_left:
-            self.display.blit(self.sprites['WL0'], self.position)
+            self.draw_standing('L')
 
         elif self.right:
-            self.display.blit(self.sprites['WR'+str(1+(self.walk_count//3)%self.walk_sprites)], self.position)
-            self.walk_count += 1
+            self.draw_walk('R')
 
         elif self.left:
-            self.display.blit(self.sprites['WL'+str(1+(self.walk_count//3)%self.walk_sprites)], self.position)
-            self.walk_count += 1
+            self.draw_walk('L')
 
         self.health_bar(font)
         #Develper Tools
         self.show_hitbox(False) 
         self.show_borders(False)
 
-    def draw_jump_right(self):
-        self.display.blit(self.sprites['JR'+str((self.jump_count//7)%self.jump_sprites)], self.position)
-
-    def draw_jump_left(self):
-        self.display.blit(self.sprites['JL'+str((self.jump_count//7)%self.jump_sprites)], self.position)
-
-    def draw_basic_attack_right(self):
-        self.display.blit(self.sprites['BAR'+str((self.attack_count//2)%self.basic_attack_sprites)], self.position)
+    def draw_basic_attack(self, direction):
+        self.display.blit(
+            self.sprites['BA'+direction+str((self.attack_count//2)%self.basic_attack_sprites)],
+            self.position
+        )
         self.attack_count += 1
 
-    def draw_basic_attack_left(self):
-        self.display.blit(self.sprites['BAL'+str((self.attack_count//2)%self.basic_attack_sprites)], self.position)
-        self.attack_count += 1
+    def draw_standing_jump(self, direction):
+        self.display.blit(
+            self.sprites['J'+direction+str((self.jump_count//7)%self.jump_sprites)],
+            self.position
+        )
+        
+    def draw_moving_jump(self, direction):
+        self.display.blit(
+            self.sprites['J'+direction+str((self.jump_count//7)%self.jump_sprites)],
+            self.position,
+        )
+
+    def draw_standing(self, direction):
+        self.display.blit(self.sprites['S'+direction], self.position)
+
+    def draw_walk(self, direction):
+        self.display.blit(
+            self.sprites['W'+direction+str(1+(self.walk_count//3)%self.walk_sprites)],
+            self.position
+        )
+        self.walk_count += 1
 
     def health_bar(self, font):
         self.health_percentage = self.health/self.max_health
