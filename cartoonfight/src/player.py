@@ -10,41 +10,6 @@ class Player(object):
         :param display: (surface) game display
         """
 
-        #Screen variables
-        self.display = display
-        self.window_size = pygame.display.get_window_size()
-        self.floor = self.window_size[1]-228
-        
-        #Player direction
-        self.right = False
-        self.left = False
-        self.jumping = False
-
-        #Attack variables
-        self.basic_attack_left = False
-        self.basic_attack_right = False
-        self.attack_hitbox = []
-        self.attacked = False
-        self.alive = True
-    
-        #Frames movement variables
-        self.speed = 8
-        self.yspeed = 0
-        self.framecount = 0
-        self.attack_count = 0
-        self.walk_sprites = 9
-
-        #Define player as one or two
-        self.is_player_one = is_player_one
-        if self.is_player_one:
-            self.standingRight = True
-            self.standingLeft = False
-            self.position = [10,self.floor]
-        else:
-            self.standingLeft = True
-            self.standingRight = False
-            self.position = [self.window_size[0]-138,self.floor]
-
         """
         Characther atributes
         set them to None to be assigned by subclass
@@ -55,29 +20,68 @@ class Player(object):
         self.base_damage = None
         self.size = None
         self.hitbox = None
+
+        #Screen variables
+        self.display = display
+        self.window_size = pygame.display.get_window_size()
+        self.floor = self.window_size[1]-228
         
+        #Player direction
+        self.right = False
+        self.left = False
+
+        #Player movements
+        self.jumping = False
+        self.speed = 8
+
+        #Attack variables
+        self.basic_attack_left = False
+        self.basic_attack_right = False
+        self.attack_hitbox = []
+        self.attacked = False
+        self.alive = True
+
+        #Define player as one or two
+        self.is_player_one = is_player_one
+        if self.is_player_one:
+            self.standing_right = True
+            self.standing_left = False
+            self.position = [10,self.floor]
+        else:
+            self.standing_left = True
+            self.standing_right = False
+            self.position = [self.window_size[0]-138,self.floor]
+           
+        #Frames movement variables
+        self.walk_sprites = 9
+        self.walk_count = 0
+        self.jump_count = 10
+        self.basic_attack_sprites = 4
+        self.attack_count = 0
+
     def draw(self, sprites, font):
-        if self.basic_attack_left:
-            self.display.blit(sprites['BAL'+str((self.attack_count//3)%4)], self.position)
+
+        if self.basic_attack_right:
+            self.display.blit(sprites['BAR'+str((self.attack_count//2)%self.basic_attack_sprites)], self.position)
             self.attack_count += 1
 
-        elif self.basic_attack_right:
-            self.display.blit(sprites['BAR'+str((self.attack_count//3)%4)], self.position)
+        elif self.basic_attack_left:
+            self.display.blit(sprites['BAL'+str((self.attack_count//2)%self.basic_attack_sprites)], self.position)
             self.attack_count += 1
 
-        elif self.standingRight:
+        elif self.standing_right:
             self.display.blit(sprites['WR0'], self.position)
 
-        elif self.standingLeft:
+        elif self.standing_left:
             self.display.blit(sprites['WL0'], self.position)
 
         elif self.right:
-            self.display.blit(sprites['WR'+str(1+(self.framecount//3)%self.walk_sprites)], self.position)
-            self.framecount += 1
+            self.display.blit(sprites['WR'+str(1+(self.walk_count//3)%self.walk_sprites)], self.position)
+            self.walk_count += 1
 
         elif self.left:
-            self.display.blit(sprites['WL'+str(1+(self.framecount//3)%self.walk_sprites)], self.position)
-            self.framecount += 1
+            self.display.blit(sprites['WL'+str(1+(self.walk_count//3)%self.walk_sprites)], self.position)
+            self.walk_count += 1
 
         self.health_bar(font)
         self.show_hitbox(False) #Develper Tool
@@ -168,23 +172,24 @@ class Player(object):
         Move Right
         Move Left
         Jump
+        Dash
         Basic Attack
     """
     def stand(self):
         if self.right:
-            self.standingRight = True
+            self.standing_right = True
             self.right = False
         elif self.left:
-            self.standingLeft = True
+            self.standing_left = True
             self.left = False
 
     def move_right(self):
-        if self.hitbox[0] < self.window_size[0] - self.size[0] -self.speed:
+        if self.hitbox[0] < self.window_size[0]-self.size[1]-self.speed:
             self.position[0] += self.speed
             self.right = True
             self.left = False
-            self.standingRight = False
-            self.standingLeft = False
+            self.standing_right = False
+            self.standing_left = False
             self.move_hitbox()
         else:
             self.stand()
@@ -194,34 +199,39 @@ class Player(object):
             self.position[0] -= self.speed
             self.right = False
             self.left = True
-            self.standingRight = False
-            self.standingLeft = False
+            self.standing_right = False
+            self.standing_left = False
             self.move_hitbox()
         else:
             self.stand()
 
     def jump(self):
-        gravity = 20
+        """
+        Jump based on vertical orientation
+        1 - Going Up
+        2 - Going Down
+        """
+        jump_range = 0.7
         if self.jumping:
-            if self.position[1] <= self.floor:
-                self.position[1] -= self.yspeed
-                if self.position[1] > self.floor:
-                    self.position[1] = self.floor + 1
-                self.yspeed -= gravity
+            if self.jump_count >= -10:
+                vertical_orientation = 1
+                if self.jump_count < 0:
+                    vertical_orientation = -1
+                self.position[1] -= (self.jump_count**2)*jump_range*vertical_orientation 
+                self.jump_count -= 1
             else:
-                self.position[1] = self.floor
-                self.yspeed = 0
                 self.jumping = False
         else:
             self.jumping = True
-            self.yspeed = 100
+            self.jump_count = 10
+
         self.move_hitbox()
 
     def basic_attack(self, other_player):
-        if self.right or self.standingRight:
+        if self.right or self.standing_right:
             self.basic_attack_right = True
             self.basic_attack_left = False
-        elif self.left or self.standingLeft:
+        elif self.left or self.standing_left:
             self.basic_attack_left = True
             self.basic_attack_right = False
 
