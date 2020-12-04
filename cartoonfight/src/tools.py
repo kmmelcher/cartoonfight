@@ -5,12 +5,14 @@ import pygame
 import os
 
 
-SRC_PATH = os.path.dirname (__file__)
+SRC_PATH = os.path.dirname(__file__)
 RESOURCES_PATH = os.path.join(SRC_PATH,'../resources')
 
-def load_images(directory,accept=(".png",".jpg")):
+def load_images(directory,accept=('.jpg','.png')):
 	"""
 	Load images with extensions in the accept argument.
+	Backgrounds must be jpg to avoid low FPS
+	Sprites should be png to get more quality
 	"""
 	images = {}
 	for pic in os.listdir(directory):

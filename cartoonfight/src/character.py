@@ -23,3 +23,7 @@ class Aang(Player):
             (self.position[0]+self.size[0], self.position[1]+self.size[2]),
             (self.size[1], self.size[3]),
         )
+
+	def double_jump(self):
+		#Glide mechanics
+		pass

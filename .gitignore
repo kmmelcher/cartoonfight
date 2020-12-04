@@ -2,9 +2,11 @@
 .python-version
 *.pyc
 *.pyo
+.venv
 
 #Pip directories
 build
 dist
 *.egg-info
+
 

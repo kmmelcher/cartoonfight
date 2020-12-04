@@ -34,11 +34,12 @@ class Player(object):
             (self.window_size[0]-8, 0),
             (self.window_size[0], self.window_size[1]),
         )
-        self.floor = self.window_size[1]-228
+        self.floor = self.window_size[1]*0.55
         
        #Player direction
         self.right = False
         self.left = False
+        self.vertical_orientation = 1
 
         #Player movements
         self.jumping = False
@@ -231,6 +232,7 @@ class Player(object):
         Move Right
         Move Left
         Jump
+        Double Jump
         Dash
         Basic Attack
     """
@@ -276,10 +278,10 @@ class Player(object):
             if self.jump_count > 10:
                 self.jump_count -= 1
             elif self.jump_count >= -10:
-                vertical_orientation = 1
+                self.vertical_orientation = 1
                 if self.jump_count < 0:
-                    vertical_orientation = -1
-                self.position[1] -= (self.jump_count**2)*jump_range*vertical_orientation 
+                    self.vertical_orientation = -1
+                self.position[1] -= (self.jump_count**2)*jump_range*self.vertical_orientation 
                 self.jump_count -= 1
             else:
                 self.jumping = False
@@ -288,6 +290,12 @@ class Player(object):
             self.jump_count = 15
 
         self.move_hitbox()
+
+    def double_jump(self):
+        """
+        Only some characters has this hability
+        """
+        pass
 
     def basic_attack(self, other_player):
         if self.right or self.standing_right:

@@ -31,7 +31,10 @@ IMAGES = tools.load_images_from_directories(_SUB_DIRECTORIES)
 FONTS = tools.load_fonts()
 
 #Scale background
-background = pygame.transform.scale(IMAGES['backgrounds']['default'], DISPLAY_SIZE)
+background = pygame.transform.scale(
+	IMAGES['backgrounds']['air_temple'],
+	DISPLAY_SIZE,
+)
 	
 playerOne = character.Aang(True, IMAGES, DISPLAY)
 playerTwo = character.Aang(False, IMAGES, DISPLAY)
@@ -80,8 +83,12 @@ def game_loop():
 			playerTwo.move_left()
 		else:
 			playerTwo.stand()
+		if user_press[K_UP] and playerTwo.jumping:
+			playerTwo.double_jump()
 		if user_press[K_UP] or playerTwo.jumping:
 			playerTwo.jump()
+		
+		
 		if user_press[K_RCTRL] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
 			playerTwo.basic_attack(playerOne)
 
