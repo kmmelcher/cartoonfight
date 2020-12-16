@@ -77,19 +77,17 @@ def game_loop():
 		"""
 		Player Two press keys
 		"""
-		if user_press[K_RIGHT]:
+		if user_press[K_l]:
 			playerTwo.move_right()
-		elif user_press[K_LEFT]:
+		elif user_press[K_j]:
 			playerTwo.move_left()
 		else:
 			playerTwo.stand()
-		if user_press[K_UP] and playerTwo.jumping:
+		if user_press[K_i] and playerTwo.jumping:
 			playerTwo.double_jump()
-		if user_press[K_UP] or playerTwo.jumping:
+		if user_press[K_i] or playerTwo.jumping:
 			playerTwo.jump()
-		
-		
-		if user_press[K_RCTRL] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
+		if user_press[K_h] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
 			playerTwo.basic_attack(playerOne)
 
 		draw_window()

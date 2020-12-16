@@ -22,6 +22,9 @@ class Player(object):
         self.hitbox = None
         self.sprites = None
 
+        #Turn On/Off tools for developer purposes     
+        self.dev_tools = True
+
         #Screen variables
         self.display = display
         self.window_size = pygame.display.get_window_size()
@@ -108,9 +111,10 @@ class Player(object):
             self.draw_walk('L')
 
         self.health_bar(font)
-        #Develper Tools
-        self.show_hitbox(False) 
-        self.show_borders(False)
+        
+        #Draw develper Tools
+        self.show_hitbox(self.dev_tools) 
+        self.show_borders(self.dev_tools)
 
     def draw_basic_attack(self, direction):
         self.display.blit(
@@ -317,7 +321,7 @@ class Player(object):
                 direction = -40
             self.attacked = True
             self.attack_hitbox = (pygame.Rect(
-                (self.position[0]+self.size[1]+direction, self.position[1] + self.size[3]/3),
+                (self.position[0] + (self.size[1]) +direction, self.position[1] + self.size[3]/3),
                 (40, 40),
             ))
 
