@@ -2,6 +2,9 @@
 Cartoon Fight is a 2D battle game to play against your friends
 with your favorites cartoon characters.
 
+![image](https://user-images.githubusercontent.com/62118039/198686603-e3e34ded-3a59-4cca-a5d7-3ead0dce8fff.png)
+
+
 ## Install
 
 `$ pip install cartoonfight` 
