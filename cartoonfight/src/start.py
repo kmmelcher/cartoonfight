@@ -82,7 +82,7 @@ def game_loop():
 			playerTwo.stand()
 		if user_press[K_UP] or playerTwo.jumping:
 			playerTwo.jump()
-		if user_press[K_RCTRL] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
+		if user_press[K_SLASH] or playerTwo.basic_attack_left or playerTwo.basic_attack_right:
 			playerTwo.basic_attack(playerOne)
 
 		draw_window()
